@@ -47,8 +47,9 @@ func main() {
 
 	// Bootstrap schedulers
 	err := scheduler.AddSchedulers()
-	if err != nil{
-		scheduler.LoggingClient.Error(fmt.Sprintf("Failed to load default schedules and events %s",err.Error()))
+
+	if err != nil {
+		scheduler.LoggingClient.Error(fmt.Sprintf("Failed to load default schedules and events %s", err.Error()))
 	}
 
 	http.TimeoutHandler(nil, time.Millisecond*time.Duration(scheduler.Configuration.Service.Timeout), "Request timed out")
@@ -68,7 +69,6 @@ func main() {
 	scheduler.Destruct()
 	scheduler.LoggingClient.Warn(fmt.Sprintf("terminating: %v", c))
 }
-
 
 func logBeforeInit(err error) {
 	scheduler.LoggingClient = logger.NewClient(internal.CoreCommandServiceKey, false, "")
